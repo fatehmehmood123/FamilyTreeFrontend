@@ -19,12 +19,12 @@ const Form = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const requestBody = {
-            name: name,
-            personId: selectedPerson,
-            relation: relation
+            first_person_name: name,
+            second_person_id: selectedPerson,
+            relationship: relation
         };
 
-        fetch('http://localhost:3000/api/persons', {
+        fetch('http://localhost:3000/api/relations', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -46,15 +46,7 @@ const Form = () => {
                 value={name} 
                 onChange={(e) => setName(e.target.value)} 
                 placeholder="Enter Name" 
-            />
-            <select value={selectedPerson} onChange={(e) => setSelectedPerson(e.target.value)}>
-                <option value="">Select a person</option>
-                {persons.map(person => (
-                    <option key={person.id} value={person.id}>
-                        {person.name}
-                    </option>
-                ))}
-            </select>
+            /> is &nbsp;
             <select value={relation} onChange={(e) => setRelation(e.target.value)}>
                 <option value="">Select a relation</option>
                 <option value="Father">Father</option>
@@ -63,7 +55,16 @@ const Form = () => {
                 <option value="Sister">Sister</option>
                 <option value="Son">Son</option>
                 <option value="Daughter">Daughter</option>
+            </select> of &nbsp;
+            <select value={selectedPerson} onChange={(e) => setSelectedPerson(e.target.value)}>
+                <option value="">Select a person</option>
+                {persons.map(person => (
+                    <option key={person.id} value={person.id}>
+                        {person.name}
+                    </option>
+                ))}
             </select>
+            &nbsp;
             <button type="submit">Upload</button>
         </form>
     );
